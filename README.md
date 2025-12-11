@@ -53,24 +53,32 @@ This repository contains a minimal but well-structured backend workflow engine t
 ## Project Structure
 
 agent-engine/
-├── app/
-│ ├── main.py # FastAPI app + endpoints + WS
-│ ├── engine/
-│ │ ├── models.py # Pydantic models: NodeDef, GraphDef, RunState
-│ │ ├── registry.py # Tool registry
-│ │ └── core.py # Graph execution engine
-│ ├── workflows/
-│ │ └── code_review.py # Example workflow (Option A)
-│ ├── store/
-│ │ └── memory.py # In-memory storage for graphs & runs
-│ └── utils/
-│ └── logging_config.py # Structured logging config
+│
+├── app/                         # Application package
+│   ├── main.py                  # FastAPI app: REST endpoints + WebSocket logs
+│   │
+│   ├── engine/                  # Core workflow engine
+│   │   ├── models.py            # Pydantic models (NodeDef, GraphDef, RunState)
+│   │   ├── registry.py          # Tool registry for async node functions
+│   │   └── core.py              # State → transition → loop execution engine
+│   │
+│   ├── workflows/               # Predefined example workflows
+│   │   └── code_review.py       # Code Review Mini-Agent (Option A)
+│   │
+│   ├── store/                   # Storage layer (simple in-memory store)
+│   │   └── memory.py            # Dict-based storage for graphs, runs, and log queues
+│   │
+│   └── utils/                   # Utility modules
+│       └── logging_config.py    # Structured logging configuration
+│
 ├── tests/
-│ └── quick_run.sh
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-└── README.md
+│   └── quick_run.sh             # Script to test create/run workflow end-to-end
+│
+├── Dockerfile                   # Container image definition
+├── docker-compose.yml           # Compose file for easy local deployment
+├── requirements.txt             # Python dependencies
+└── README.md                    # Project documentation
+
 
 
 ---
