@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  agent-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent-engine
+    ports:
+      - "8000:8000"        # expose FastAPI on host:8000
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs" ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
